@@ -181,6 +181,48 @@ describe('generateYamlFrontmatter', () => {
     expect(parsed.frontmatter.description).toBe(data.description);
   });
 
+  test('should quote descriptions ending with a colon', () => {
+    const data = {
+      name: 'test',
+      description: 'Trailing colon edge case:'
+    };
+
+    const result = generateYamlFrontmatter(data);
+    expect(result).toContain('description: "Trailing colon edge case:"');
+
+    const parsed = parseFrontmatter(`${result}\n\nbody`);
+    expect(parsed.frontmatter.description).toBe(data.description);
+  });
+
+  test('should quote values beginning with YAML reserved indicators', () => {
+    const data = {
+      name: 'reserved',
+      description: '# not actually a comment',
+      tagline: '&anchor-looking-value'
+    };
+
+    const result = generateYamlFrontmatter(data);
+    expect(result).toContain('description: "# not actually a comment"');
+    expect(result).toContain('tagline: "&anchor-looking-value"');
+
+    const parsed = parseFrontmatter(`${result}\n\nbody`);
+    expect(parsed.frontmatter.description).toBe(data.description);
+    expect(parsed.frontmatter.tagline).toBe(data.tagline);
+  });
+
+  test('should quote values containing a mid-string comment marker', () => {
+    const data = {
+      name: 'comment',
+      description: 'Value with inline #hashtag - note the space before #'
+    };
+
+    const result = generateYamlFrontmatter(data);
+    expect(result).toContain('description: "Value with inline #hashtag - note the space before #"');
+
+    const parsed = parseFrontmatter(`${result}\n\nbody`);
+    expect(parsed.frontmatter.description).toBe(data.description);
+  });
+
   test('should quote strings starting with YAML flow indicators', () => {
     const data = {
       name: 'test',
@@ -685,4 +727,3 @@ describe('replacePlaceholders', () => {
     expect(result).toBe('the model .cursorrules');
   });
 });
-
