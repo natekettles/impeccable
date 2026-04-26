@@ -1,5 +1,31 @@
 # Impeccable
 
+> [!NOTE]
+> **Note!** This is a fork to get Impeccable working with Codex. For now, this fork focuses on two things:
+> 1. Fixing YAML validation errors in the skill files.
+> 2. Giving clear instructions for installing with Codex.
+>
+> **1) Fix the YAML validation errors**
+> Clone this repo and follow the install steps below. This fork already includes the YAML fixes.
+>
+> **2) Install with Codex**
+> From your cloned repo folder, run this in terminal (you can paste it all at once). Replace `~/Documents/GitHub/impeccable/.agents/skills` with your actual cloned repo path if needed.
+>
+> ```bash
+> mkdir -p ~/.agents/skills
+> cp -r ~/Documents/GitHub/impeccable/.agents/skills* ~/.agents/skills/
+> ```
+>
+> **3) Exit and restart Codex app (or terminal)**
+>
+> **4) You can now @mention Impeccable and start using it**
+>
+> And so far, that's it. You will now have Impeccable working with Codex. Enjoy!
+>
+> ![Codex @mention Impeccable screenshot](docs/codex-impeccable-mention.png)
+
+---
+
 The vocabulary you didn't know you needed. 1 skill, 23 commands, and curated anti-patterns for impeccable frontend design.
 
 > **Quick start:** Visit [impeccable.style](https://impeccable.style) to download ready-to-use bundles.
